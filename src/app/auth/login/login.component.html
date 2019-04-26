@@ -1,0 +1,18 @@
+<div class="login-form-container">
+  <div class="login-header">
+    <p class="center">Sign In</p>
+  </div>
+  <form class="col-sm-12 justify-content-center login-form" [formGroup]="loginForm" (ngSubmit)="tryToLogin()">
+    <div [formGroup]="loginForm" class="col-sm-12 form-group time-control-wrapper">
+      <input class="time-control" type="text" placeholder="Email" formControlName="userEmail">
+    </div>
+    <div [formGroup]="loginForm" class="col-sm-12 form-group time-control-wrapper">
+      <input class="time-control" type="text" placeholder="Password" formControlName="userPassword">
+    </div>
+    <div class="col-sm-12">
+      <button [disabled]="!loginForm.valid" type="submit" class="btn btn-info">
+        <fa-icon [icon]="faCheck"></fa-icon>
+      </button>
+    </div>
+  </form>
+</div>

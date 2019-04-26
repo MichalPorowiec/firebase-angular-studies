@@ -1,0 +1,14 @@
+.session-tiles {
+    margin: 0px;
+    padding: 5px;
+}
+
+@media only screen and (max-width: 768px) {
+    .session-tiles {
+        padding: 0px;
+    }
+}
+
+.tile-wrapper {
+    width: 33%;
+}

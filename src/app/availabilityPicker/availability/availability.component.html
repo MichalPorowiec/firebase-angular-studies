@@ -1,0 +1,8 @@
+<div class="row session-tiles">
+    <div class="tile-wrapper" *ngFor="let tile of tiles; let i = index">
+        <app-calendar-tile [availability]= tile.AvailabilityTime [tileColor] = checkColor(i) [tileDate]="tile.timeStamp" [sessionId] = session.sessionRef></app-calendar-tile>
+    </div>
+</div>
+<div class="row">
+    <!-- TODO AND TO FIND -->
+</div>

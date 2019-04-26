@@ -1,0 +1,98 @@
+<div class="tile" [ngStyle] = "{'background-color': tileColor.backgroundColor,'color': tileColor.color}">
+  <div class="tile-content">
+    <div class="row">
+      <div class="col-sm">
+        <p class="center-text">{{tileDateDisplay}}</p>
+      </div>
+    </div>
+    <div class="row" *ngIf="currentSlide == 1">
+      <div class="col-sm-12">
+        <p class="center-text">Are you available that day?</p>      
+      </div>
+      <div class="col-sm-12 tile-btn-wrapper center">
+        <button class="btn btn-light tile-option-button" (click) = "availabilityResponse(true)">
+          <fa-icon [icon]="faCheck"></fa-icon>
+        </button>
+        <button class="btn btn-dark tile-option-button" (click) = "availabilityResponse(false)">
+          <fa-icon [icon]="faTimes"></fa-icon>
+        </button>
+      </div>
+    </div>
+    
+    <div class="row" *ngIf="currentSlide == 2 && isAvailable">
+      <div class="col-sm-12 center-text">
+        <p>In what hours?</p>
+      </div>
+      <form [formGroup]="availabilityForm" (ngSubmit)="onSubmit()">
+        <div class="col-sm-6 form-gro up time-control-wrapper">
+          <label>
+            <input class="time-control" type="text" placeholder="from" formControlName="availableFrom" [value] = availableFrom>
+          </label>
+        </div>
+        <div class="col-sm-6 form-group time-control-wrapper">
+          <label>
+            <input class="time-control" type="text" placeholder="to" formControlName="availableTo" [value] = availableTo>
+          </label>
+        </div>
+        <div class="col-sm-12 form-group center-text">
+          <label>
+            <input type="checkbox" placeholder="to" formControlName="availableWholeDay">
+            all day
+          </label>
+        </div>  
+        <div class="col-sm-12 center">
+          <button [disabled]="!availabilityForm.valid" type="submit" class="btn btn-light">
+            <fa-icon [icon]="faCheck"></fa-icon>
+          </button>
+          <button class="btn btn-dark" (click) = "currentSlide = currentSlide - 1">
+            <fa-icon [icon]="faUndo"></fa-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Split in to diferent component with it's own form -->
+    <div class="row" *ngIf="currentSlide == 2 && !isAvailable">
+      <form [formGroup]="availabilityForm" (ngSubmit)="noAvailableSubmit()">
+        <div class="col-sm-12 center-text">
+          <p>Are you sure you won't be able?</p>
+        </div>
+        <div class="col-sm-12 form-group center-text">
+          <label>
+            <textarea class="center-text" placeholder="Why not?" formControlName="unavailabilityReason"></textarea>
+          </label>
+        </div>
+        <div class="col-sm-12 center">
+          <button class="btn btn-light" (click)="noAvailableSubmit()">
+            <fa-icon [icon]="faCheck"></fa-icon>
+          </button>
+          <button class="btn btn-dark" (click) = "currentSlide = currentSlide - 1">
+            <fa-icon [icon]="faUndo"></fa-icon>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Split in to diferent component -->
+    <div class="row" *ngIf="currentSlide == 3">
+      <div class="col-sm-12 center-text">
+        <p>Processing</p>
+      </div>
+    </div>
+
+    
+    <div class="row" *ngIf="currentSlide == 4 && isDone == true">
+      <div class="col-sm-12 center-text">
+        <p>Done</p>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="currentSlide == 4 && isDone == false">
+      <div class="col-sm-12 center">
+        <p>Error</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    color: #213248;
+    background: #131c29;
+}
+
+.center {
+	display: block;
+	margin: 0 auto;
+}
+
+.center-text {
+	text-align: center;
+}
+
+
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #213248;
+}
+
+::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #213248;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: rgb(29, 26, 26);
+}

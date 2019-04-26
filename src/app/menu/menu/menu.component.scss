@@ -1,0 +1,26 @@
+.main-menu-item {
+    width: 80%;
+    margin-left: 10%;
+    font-size: 24px;
+    cursor: pointer;
+    transition: 0.5s padding-left;
+}
+
+.main-menu-item:hover {
+    padding-left: 20px;
+    color: rgba(30, 50, 72, 0.5)
+}
+
+.main-menu-item:first-of-type {
+    margin-top: 5%;
+}
+
+.section-name {
+    margin-left: 5%;
+}
+
+.active {
+    border-radius: 15px;
+    padding-left: 20px;
+    background: #dbe0e6;
+}

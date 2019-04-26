@@ -1,0 +1,16 @@
+<div class="wrapper">
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <fa-icon [icon]=headerIcon></fa-icon>
+      <span class="section-name">Biomedical Engineering</span>
+    </div>
+    <hr>
+
+    <ul class="list-unstyled components">
+      <li class="main-menu-item" *ngFor="let menuItem of menuItems" [ngClass]="{'active': menuItem.isActive}" [routerLink]="[ menuItem.routerLink ]" routerLinkActive="active">
+        <fa-icon [icon]=menuItem.icon></fa-icon>
+        <span class="section-name">{{menuItem.name}}</span>  
+      </li>
+    </ul>
+  </nav>
+</div>
