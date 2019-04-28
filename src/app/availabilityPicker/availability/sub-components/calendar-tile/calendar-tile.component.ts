@@ -4,6 +4,8 @@ import { faCheck, faTimes, faUndo } from '@fortawesome/free-solid-svg-icons';
 import { SessionDayAvailability } from 'src/app/entities/session-day-availability';
 import { SessionDay } from 'src/app/entities/session-day';
 import { AvailabilityService } from 'src/app/availabilityPicker/services/availability.service';
+import { CustomValidatorService } from '../../../../services/custom-validator.service';
+import { AvailabilityRequestService } from '../../../services/availability-request.service';
 
 @Component({
   selector: 'app-calendar-tile',
@@ -25,7 +27,11 @@ export class CalendarTileComponent implements OnInit {
   tileDateDisplay: string;
   faCheck; faTimes; faUndo;
 
-  constructor(private availabilityServcie: AvailabilityService) {
+  constructor(
+    private availabilityService: AvailabilityService, 
+    private customValidators: CustomValidatorService, 
+    private availabilityRequestService:AvailabilityRequestService
+  ) {
     this.faCheck = faCheck;
     this.faTimes = faTimes;
     this.faUndo = faUndo;
@@ -39,7 +45,7 @@ export class CalendarTileComponent implements OnInit {
       availableWholeDay: new FormControl(null),
       unavailabilityReason: new FormControl(null)
     });
-    this.availabilityForm.setValidators(this.timeValidator());
+    this.availabilityForm.setValidators(this.customValidators.timeValidator());
   }
 
   private _tileDataInitialization() {
@@ -59,8 +65,11 @@ export class CalendarTileComponent implements OnInit {
 
   ngOnInit(): void {
     const day = this.tileDate.getDate() < 10 ? `0${this.tileDate.getDate()}` : this.tileDate.getDate();
-    const month = this.tileDate.getMonth() < 10 ? `0${this.tileDate.getMonth()}` : this.tileDate.getMonth();
-    this.tileDateDisplay = `${day}.${month}`;
+    const month = this.tileDate.getMonth() + 1 < 10 ? `0${this.tileDate.getMonth() + 1}` : this.tileDate.getMonth() + 1;
+    const daysNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayName = daysNames[this.tileDate.getDay()];
+    
+    this.tileDateDisplay = `${day}.${month} ${dayName}`;
 
     this._tileDataInitialization();
   }
@@ -70,34 +79,12 @@ export class CalendarTileComponent implements OnInit {
     this.currentSlide += 1;
   }
 
-  timeValidator(): ValidatorFn {
-    return (form: FormGroup): ValidationErrors => {
-      const availableFrom = form.controls['availableFrom'];
-      const availableTo = form.controls['availableTo'];
-      const availableWholeDay = form.controls['availableWholeDay'];
-
-      const checkboxIsTrue = (availableWholeDay.value == null || availableWholeDay.value === false);
-      if ((availableFrom.value == null ||
-        availableFrom.value > 24 ||
-        availableFrom.value < 0 ||
-        isNaN(parseInt(availableFrom.value))) &&
-        checkboxIsTrue ) {
-        return {outOfRange: true};
-      }
-      if ((availableTo.value == null ||
-        availableTo.value > 24 ||
-        availableTo.value < 0 ||
-        isNaN(parseInt(availableTo.value))) &&
-        checkboxIsTrue) {
-        return {outOfRange: true};
-      }
-
-      return null;
-    };
+  requestSendHandler() {
+    this.currentSlide += 1;
   }
 
   onSubmit() {
-    const availableWholeDay = this.availabilityForm.controls.availableWholeDay.value;
+    let availableWholeDay = this.availabilityForm.controls.availableWholeDay.value; 
 
     const sessionDay = new SessionDay({
       timeStamp: this.tileDate,
@@ -108,33 +95,31 @@ export class CalendarTileComponent implements OnInit {
       })
     });
 
-    if (availableWholeDay !== false) {
-      const availableFrom = parseInt(this.availabilityForm.controls.availableFrom.value);
-      const availableTo = parseInt(this.availabilityForm.controls.availableTo.value);
+    const availableFrom = new Date(this.tileDate);
+    const availableTo = new Date(this.tileDate);
 
-      sessionDay.AvailabilityTime.availableFrom = new Date(null, null, null, availableFrom);
-      sessionDay.AvailabilityTime.availableTo = new Date(null, null, null, availableTo);
+    if (!availableWholeDay) {
+      availableFrom.setHours(parseInt(this.availabilityForm.controls.availableFrom.value));
+      availableTo.setHours(parseInt(this.availabilityForm.controls.availableTo.value));
     } else {
-      sessionDay.AvailabilityTime.availableFrom = new Date(null, null, null, 0);
-      sessionDay.AvailabilityTime.availableTo = new Date(null, null , null, 24);
+      availableFrom.setHours(1);
+      availableTo.setHours(23);
+      availableTo.setMinutes(59);
     }
 
+    sessionDay.AvailabilityTime.availableFrom = availableFrom;
+    sessionDay.AvailabilityTime.availableTo = availableTo;
+
     this.currentSlide += 1;
-    this.availabilityServcie.initAvailability(sessionDay, this.sessionId).then((requestResponse) => {
+    this.availabilityService.initAvailability(sessionDay, this.sessionId).then((requestResponse) => {
       this.requestResponseHandler(requestResponse);
     });
   }
 
   noAvailableSubmit() {
-    const sessionDay = new SessionDay({
-      available: false,
-      timeStamp: this.tileDate,
-      unavailabilityReason: this.availabilityForm.controls.unavailabilityReason.value
-    });
-
-    this.currentSlide += 1;
-    this.availabilityServcie.initAvailability(sessionDay, this.sessionId).then((requsestResponse) => {
-      this.requestResponseHandler(requsestResponse);
+    this.requestSendHandler();
+    this.availabilityRequestService.notAvailableRequest(this.availabilityForm, this.tileDate, this.sessionId).then((requestStatus: boolean) => {
+      this.requestResponseHandler(requestStatus);
     });
   }
 }

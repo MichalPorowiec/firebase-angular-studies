@@ -70,7 +70,7 @@ export class FirestoreService implements DbCommunication {
        dayToChange.AvailabilityTime !== undefined ? { AvailabilityTime: {...dayToChange.AvailabilityTime} } : null,
        dayToChange.unavailabilityReason ? { unavailabilityReason: dayToChange.unavailabilityReason } : null
     );
- 
+
     return new Promise((resolve, reject) => {
       this.firestore
       .collection('Classmates').doc(this.userService.user.id)
@@ -81,6 +81,29 @@ export class FirestoreService implements DbCommunication {
       .then((el) => resolve(true))
       .catch(() => reject(false));
     });
+  }
+
+  initUserSession(sessionDates: Date[], sessionId: string): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      const sessionDays: SessionDay[] = [];
+
+      sessionDates.forEach((day: Date) => {
+        const sessionDay = new SessionDay({
+          available: false,
+          timeStamp: day
+        });
+        
+        if (sessionDay.timeStamp.getTime() > 0) {
+          sessionDays.push(sessionDay);
+        }
+      })
+      console.log(sessionDays);
+      if (sessionDays.length == sessionDates.length) {
+        sessionDays.forEach((sessionDay: SessionDay) => {
+          this.initUserAvailability(sessionDay, sessionId)
+        })
+      }
+    })
   }
 
   getAvailability(sessionId: string): Promise<SessionDay[]> {
@@ -103,7 +126,7 @@ export class FirestoreService implements DbCommunication {
     return new Promise((resolve, reject) => {
       this.firestore.collection('Sessions').valueChanges().subscribe(dbData => {
         if (!dbData) {
-          reject('no data occurs');
+          reject('no sessions available');
         }
 
         const dtoMapping = dbData.map((session: ExaminSessionDTO) => {
@@ -121,15 +144,18 @@ export class FirestoreService implements DbCommunication {
     });
   }
 
-  _mapDayToClass(objectsFromDb: SessionDay[]): SessionDay[] {
+  _mapDayToClass(objectsFromDb: any[]): SessionDay[] {
     return objectsFromDb.map(element => {
       const day = new SessionDay({
-        timeStamp: element.timeStamp,
+        timeStamp: element.timeStamp.toDate(),
         available: element.available
     });
 
       if (element.AvailabilityTime) {
-        day.AvailabilityTime = element.AvailabilityTime;
+        day.AvailabilityTime = {
+          availableFrom: element.AvailabilityTime.availableFrom.toDate(),
+          availableTo: element.AvailabilityTime.availableTo.toDate()
+        };
       }
 
       if (element.unavailabilityReason) {

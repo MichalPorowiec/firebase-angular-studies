@@ -4,40 +4,25 @@ import { ClassmateSession } from 'src/app/entities/classmate-session';
 import { AvailabilityService } from '../services/availability.service';
 import { SessionDayAvailability } from 'src/app/entities/session-day-availability';
 import { SessionService } from '../services/session.service';
+import { ExaminSession } from '../../entities/examin-session';
+import { Observable, Subscriber } from 'rxjs';
 
 @Component({
   selector: 'app-availability',
+  host: {class: 'routingClass'},
   templateUrl: './availability.component.html',
   styleUrls: ['./availability.component.scss']
 })
 export class AvailabilityComponent {
-  session: ClassmateSession;
-  tiles: SessionDay[];
+  sessionRef: string;
+  sessionDays: Promise<SessionDay[]>;
 
-  constructor(private availabilityService: AvailabilityService, private ses: SessionService) {
-    this.session = new ClassmateSession({
-      didPass: false,
-      sessionRef: 'sessionOne',
-      availability: [
-        new SessionDay({timeStamp: new Date(2019, 6, 25), available: false, AvailabilityTime: new SessionDayAvailability({
-          availableFrom: new Date(0,0,0,12),
-          availableTo: new Date(0,0,0,13)
-        })}),
-        new SessionDay({timeStamp: new Date(2019, 6, 26), available: false}),
-        new SessionDay({timeStamp: new Date(2019, 6, 27), available: false}),
-        new SessionDay({timeStamp: new Date(2019, 6, 28), available: false}),
-        new SessionDay({timeStamp: new Date(2019, 6, 29), available: false}),
-        new SessionDay({timeStamp: new Date(2019, 6, 30), available: false}),
-        new SessionDay({timeStamp: new Date(2019, 6, 31), available: false}),
-        new SessionDay({timeStamp: new Date(2019, 7, 1), available: false}),
-        new SessionDay({timeStamp: new Date(2019, 7, 2), available: false}),
-        new SessionDay({timeStamp: new Date(2019, 7, 3), available: false})
-      ]
-    });
-
-    this.availabilityService.getAvailability('sessionOne').then(response => (response));
-    this.tiles = this.session.availability;
-   }
+  constructor(private availabilityService: AvailabilityService, private sessionService: SessionService) {
+    this.sessionService.getActiveSession().then((activeSession: ExaminSession) => {
+      this.sessionRef = activeSession.sessionName;
+      this.sessionDays = this.availabilityService.getAvailability(activeSession.sessionName);
+    })
+  }
 
   checkColor(index: number) {
     if ((index % 2) === 1) {

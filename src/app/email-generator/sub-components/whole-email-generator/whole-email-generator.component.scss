@@ -1,0 +1,26 @@
+@import '../../../../variables.scss';
+@import '../../../../general-styles.scss';
+
+p {
+    color: white;
+}
+
+h3 {
+    color: $routing-background-header-text-color;
+}
+
+input {
+    color: white;
+}
+
+div {
+    display: flex;
+}
+
+.email-generator-container {
+    align-items: center;
+}
+
+.email-creator-header {
+    margin-bottom: 50px;
+}

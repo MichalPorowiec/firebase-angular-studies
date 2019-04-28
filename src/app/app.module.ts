@@ -7,6 +7,7 @@ import { AvailabilityModule } from './availabilityPicker/availability/availabili
 import { FirebaseModule } from './firebase/firebase.module';
 import { MenuModule } from './menu/menu/menu.module';
 import { AuthModule } from './auth/auth.module';
+import { EmailGeneratorModule } from './email-generator/email-generator.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AuthModule } from './auth/auth.module';
     AvailabilityModule,
     FirebaseModule,
     MenuModule,
-    AuthModule
+    AuthModule,
+    EmailGeneratorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,21 @@
+<div class="col-sm-12 email-creator center-flex">
+  <div class="row">
+    <div class="col-sm-4 center-flex">
+      <label>
+        <input type="text" placeholder="Professor's Name">
+      </label>
+    </div>
+    <div class="col-sm-4 center-flex">
+      <label>
+        <input type="text" placeholder="Professor's last name">
+      </label>
+    </div>
+    <div class="col-sm-4 center-flex" *ngIf="!shouldDisplayQuestionSection">
+      <button type="submit" class="btn btn-light" (click)="returnToQuestionSection()">Generate E-mail</button>
+    </div>
+    <div class="col-sm-12 email-presentation">
+      <input type="text" [(value)]=professorsEmail>
+      <button class="btn btn-dark copy-button">Copy</button>
+    </div>
+  </div>
+</div>  

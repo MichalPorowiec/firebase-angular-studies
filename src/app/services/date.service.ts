@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { ExaminSession } from '../entities/examin-session';
+import { SessionDay } from '../entities/session-day';
 
 @Injectable({
   providedIn: 'root'
@@ -7,19 +9,25 @@ export class DateService {
 
   constructor() { }
 
-  makeArrayBetweenDates(initDate: Date, finishDate: Date): Date[] {
+  makeArrayBetweenDates(sessionToInit: ExaminSession): Date[] {
     const dateArray: Date[] = [];
 
-    initDate = new Date(initDate.getFullYear(), initDate.getMonth(), initDate.getDate());
-    finishDate = new Date(finishDate.getFullYear(), finishDate.getMonth(), finishDate.getDate());
+    const initDate: Date = new Date(sessionToInit.sessionStart);
+    const finishDate: Date = new Date(sessionToInit.sessionEnd);
 
-    const initialDateTime = initDate.getTime();
-    const finishDateTime = finishDate.getTime();
+    console.log(initDate);
+    const transferDate: Date = new Date(initDate);
 
-    for (let manipulationTime = initialDateTime; manipulationTime <= initialDateTime; manipulationTime += 86400000) {
-      dateArray.push(new Date(manipulationTime))
+    while (transferDate <= finishDate) {
+      dateArray.push(new Date(transferDate));
+
+      transferDate.setDate(transferDate.getDate() + 1)
     }
 
     return dateArray;
+  }
+
+  sortSessionDays(dateArray: SessionDay[]): SessionDay[] {
+    return dateArray.sort((firstDay: SessionDay, secondDay: SessionDay) => firstDay.timeStamp > secondDay.timeStamp ? 1 : -1);
   }
 }

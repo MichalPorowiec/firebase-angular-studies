@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MenuRoute } from '../interfaces/menu-route';
-import { faTable, faUser, faQuestion, faGraduationCap} from '@fortawesome/free-solid-svg-icons';
+import { faTable, faUser, faEnvelope, faQuestion, faGraduationCap} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-menu',
@@ -19,7 +19,8 @@ export class MenuComponent implements OnInit {
     this.menuItems = [
       {name: 'Session Availability', icon: faTable, routerLink: '/availabilityPicker'},
       {name: 'Questions', icon: faQuestion, routerLink: '/questions'},
-      {name: 'Profile', icon: faUser, routerLink: '/profile'}];
+      {name: 'Email Generator', icon: faEnvelope, routerLink: '/emailGenerator'}
+    ];
    }
 
    _checkActive() {

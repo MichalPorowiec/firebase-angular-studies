@@ -1,0 +1,25 @@
+<div class="row email-generator-container">
+  <div class="col-sm-12 center-flex email-creator-header">
+    <h3>Generate Email</h3>
+  </div>
+  <div class="col-sm-12 center-flex" *ngIf="shouldDisplayQuestionSection">
+    <h4>Select one option:</h4>
+  </div>
+  <div class="col-sm-3" *ngIf="shouldDisplayQuestionSection"></div>
+  <div class="col-sm-6" *ngIf="shouldDisplayQuestionSection">
+    <button type="submit" class="btn btn-light" (click)="displayWholeEmailGenerator()">
+      Generate whole email
+    </button>
+    <button class="btn btn-dark" (click)="displayCheckEmail()">
+      Check Professor's email
+    </button>
+  </div>
+  <app-whole-email-generator *ngIf="shouldDisplayWholeEmailGenerator"></app-whole-email-generator>
+  <app-check-email *ngIf="shouldDisplayCheckEmail"></app-check-email>
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4 center-flex return-button" *ngIf="!shouldDisplayQuestionSection">
+    <button type="submit" class="btn btn-light" (click)="returnToQuestionSection()">
+        <fa-icon [icon]="faUndo"></fa-icon>
+    </button>
+  </div>
+</div>

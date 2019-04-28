@@ -1,10 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'variables.scss';
+@import 'general-styles.scss';
+
 body {
     padding: 0px;
     margin: 0px;
     border: 0px;
     color: #213248;
     background: #131c29;
+}
+
+.routingClass {
+	width: 100%;
+	padding: 10px;
 }
 
 .center {

@@ -24,14 +24,14 @@
         <p>In what hours?</p>
       </div>
       <form [formGroup]="availabilityForm" (ngSubmit)="onSubmit()">
-        <div class="col-sm-6 form-gro up time-control-wrapper">
+        <div class="col-sm-6 form-group time-control-wrapper">
           <label>
-            <input class="time-control" type="text" placeholder="from" formControlName="availableFrom" [value] = availableFrom>
+            <input type="text" placeholder="from" formControlName="availableFrom" [value] = availableFrom>
           </label>
         </div>
         <div class="col-sm-6 form-group time-control-wrapper">
           <label>
-            <input class="time-control" type="text" placeholder="to" formControlName="availableTo" [value] = availableTo>
+            <input type="text" placeholder="to" formControlName="availableTo" [value] = availableTo>
           </label>
         </div>
         <div class="col-sm-12 form-group center-text">

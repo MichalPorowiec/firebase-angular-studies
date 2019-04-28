@@ -1,8 +1,8 @@
-<div class="row session-tiles">
-    <div class="tile-wrapper" *ngFor="let tile of tiles; let i = index">
-        <app-calendar-tile [availability]= tile.AvailabilityTime [tileColor] = checkColor(i) [tileDate]="tile.timeStamp" [sessionId] = session.sessionRef></app-calendar-tile>
+<div class="row session-tiles" *ngIf="sessionDays | async; else loading">
+    <div class="tile-wrapper" *ngFor="let tile of sessionDays | async ; let i = index">
+        <app-calendar-tile [availability]= tile.AvailabilityTime [tileColor] = checkColor(i) [tileDate]="tile.timeStamp" [sessionId] = sessionRef></app-calendar-tile>
     </div>
 </div>
-<div class="row">
-    <!-- TODO AND TO FIND -->
-</div>
+<ng-template #loading>
+    <p class="loading-message">loading, please wait</p>
+</ng-template>

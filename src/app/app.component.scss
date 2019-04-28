@@ -1,11 +1,11 @@
 .app-container {
     border-radius: 15px;
-    min-width: 900px;   
+    min-width: 1000px;   
     height: 60vh;
     min-height: 475px;
     margin: 112.5px 50px;
     background-color: #172333;
-    display: inline-flex;
+    display: flex;
 }
 
 @media only screen and(max-width: 768px) {
@@ -44,8 +44,4 @@
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     overflow-y: auto;
-}
-
-.routed-content {
-    width: 100%;
 }
