@@ -4,7 +4,6 @@ import { AvailabilityComponent } from '../availabilityPicker/availability/availa
 import { EmailGeneratorComponent } from '../email-generator/email-generator.component';
 import { LoginGuard } from './login.guard';
 import { LoginComponent } from '../auth/login/login.component';
-import { SessionGuard } from './session.guard';
 
 const routes: Routes = [
   {path: "", component: AvailabilityComponent, canActivate: [LoginGuard]},
