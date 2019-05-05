@@ -2,11 +2,16 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AvailabilityComponent } from '../availabilityPicker/availability/availability.component';
 import { EmailGeneratorComponent } from '../email-generator/email-generator.component';
+import { LoginGuard } from './login.guard';
+import { LoginComponent } from '../auth/login/login.component';
+import { SessionGuard } from './session.guard';
 
 const routes: Routes = [
-  {path: "availabilityPicker", component: AvailabilityComponent},
-  {path: "questions", component: AvailabilityComponent},
-  {path: "emailGenerator", component: EmailGeneratorComponent}
+  {path: "", component: AvailabilityComponent, canActivate: [LoginGuard]},
+  {path: "availabilityPicker", component: AvailabilityComponent, canActivate: [LoginGuard]},
+  {path: "questions", component: AvailabilityComponent, canActivate: [LoginGuard]},
+  {path: "emailGenerator", component: EmailGeneratorComponent, canActivate: [LoginGuard]},
+  {path: "login", component: LoginComponent}
 ];
 
 @NgModule({

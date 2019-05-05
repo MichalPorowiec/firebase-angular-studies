@@ -21,10 +21,10 @@ export class MenuComponent implements OnInit {
       {name: 'Questions', icon: faQuestion, routerLink: '/questions'},
       {name: 'Email Generator', icon: faEnvelope, routerLink: '/emailGenerator'}
     ];
-   }
 
-   _checkActive() {
-     this.menuItems.map(el => ('/' + el.name) === this.router.url);
+    if (router.url == "/") {
+      this.menuItems[0].isActive = true;
+    }
    }
 
   ngOnInit() {

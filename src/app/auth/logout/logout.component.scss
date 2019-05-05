@@ -1,0 +1,9 @@
+@import '../../../variables.scss';
+
+.logout-button {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+    color: $secondary-color;
+}

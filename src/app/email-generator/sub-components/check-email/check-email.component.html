@@ -14,8 +14,8 @@
       <button type="submit" class="btn btn-light" (click)="returnToQuestionSection()">Generate E-mail</button>
     </div>
     <div class="col-sm-12 email-presentation">
-      <input type="text" [(value)]=professorsEmail>
-      <button class="btn btn-dark copy-button">Copy</button>
+      <input class="email-output" type="text" [(value)]=professorsEmail readonly>
+      <button class="btn btn-primary copy-button">Copy</button>
     </div>
   </div>
 </div>  

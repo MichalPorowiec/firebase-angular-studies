@@ -1,23 +1,30 @@
+@import '../../../variables.scss';
+
 label {
-    color: white;
+    color: $secondary-color;
+}
+
+p {
+    color: $secondary-color;
 }
 
 .login-form-container {
     display: flex;
     flex: 1;
     flex-direction: column;
-    background: #2d424c;
+    background: $main-color;
     margin: 2%;
     margin-top: 10%;
     border-radius: 15px;
+    padding-bottom: 20px;
 }
 
 .login-header {
     display:flex;
-    background: #213742;
+    background: $body-color;
     width: 100%;
-    color: white;
-    height: 2rem;
+    color: $secondary-color;
+    padding: 10px;
 }
 
 .login-form {
@@ -33,10 +40,7 @@ input {
     border-radius: 5px;
     border: none;
     text-align: center;
-}
-
-input[type="text"] {
-    border: 1.5px solid rgba(125,125,125,.3);
+    color: $secondary-color;
 }
 
 .btn {
@@ -45,4 +49,18 @@ input[type="text"] {
     margin: 0 auto;
     background-color: #213742;
     border: #213742;
+}
+
+.error-message {
+    text-align: center;
+    color: #d84545;
+}
+
+.redirect-message {
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+    color: $redirect-text-color;
+    text-decoration: underline;
+    cursor: pointer;
 }

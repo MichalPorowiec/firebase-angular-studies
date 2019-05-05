@@ -1,17 +1,44 @@
 <div class="col-sm-12 email-creator center-flex">
   <div class="row">
-    <div class="col-sm-12 center-flex">
+    <div class="col-sm-4 center-flex">
       <label>
         <input type="text" placeholder="Professor's Name">
       </label>
     </div>
-    <div class="col-sm-12 center-flex">
+    <div class="col-sm-4 center-flex">
       <label>
         <input type="text" placeholder="Professor's last name">
       </label>
     </div>
+    <div class="col-sm-4"></div>
   </div>
-</div>
-<div class="col-sm-12 email-preview center-flex">
-  <p>preview</p>
-</div>
+  <div class="row first-sentence-form">
+    <div class="col-sm-3">
+      <label>
+        <input type="checkbox">
+      </label>
+    </div>
+    <div class="col-sm-9"></div>
+    <div class="col-sm-3">
+      <label>
+        <input type="checkbox">
+      </label>
+    </div>
+    <div class="col-sm-9"></div>
+    <div class="col-sm-3">
+      <label>
+        <input type="checkbox">
+      </label>
+    </div>
+    <div class="col-sm-4">
+      <mdb-checkbox [default]="true">Default unchecked</mdb-checkbox>
+      <select class="mdb-select">
+          <option value="" disabled selected>Choose your option</option>
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+          <option value="3">Option 3</option>
+        </select>
+      <input type="text" placeholder="what's the group name?">
+    </div>
+  </div>
+</div>  

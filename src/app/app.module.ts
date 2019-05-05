@@ -8,6 +8,7 @@ import { FirebaseModule } from './firebase/firebase.module';
 import { MenuModule } from './menu/menu/menu.module';
 import { AuthModule } from './auth/auth.module';
 import { EmailGeneratorModule } from './email-generator/email-generator.module';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { EmailGeneratorModule } from './email-generator/email-generator.module';
     FirebaseModule,
     MenuModule,
     AuthModule,
-    EmailGeneratorModule
+    EmailGeneratorModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

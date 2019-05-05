@@ -4,6 +4,7 @@ import { EmailGeneratorComponent } from './email-generator.component';
 import { WholeEmailGeneratorComponent } from './sub-components/whole-email-generator/whole-email-generator.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CheckEmailComponent } from './sub-components/check-email/check-email.component';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { CheckEmailComponent } from './sub-components/check-email/check-email.co
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MDBBootstrapModule
   ],
   exports: [EmailGeneratorComponent]
 })

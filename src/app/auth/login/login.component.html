@@ -1,13 +1,13 @@
 <div class="login-form-container">
   <div class="login-header">
-    <p class="center">Sign In</p>
+    <p class="center">Login</p>
   </div>
   <form class="col-sm-12 justify-content-center login-form" [formGroup]="loginForm" (ngSubmit)="tryToLogin()">
     <div [formGroup]="loginForm" class="col-sm-12 form-group time-control-wrapper">
       <input class="time-control" type="text" placeholder="Email" formControlName="userEmail">
     </div>
     <div [formGroup]="loginForm" class="col-sm-12 form-group time-control-wrapper">
-      <input class="time-control" type="text" placeholder="Password" formControlName="userPassword">
+      <input class="time-control" type="password" placeholder="Password" formControlName="userPassword">
     </div>
     <div class="col-sm-12">
       <button [disabled]="!loginForm.valid" type="submit" class="btn btn-info">
@@ -15,4 +15,20 @@
       </button>
     </div>
   </form>
+  <div *ngIf="shouldThrowError" class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <p class="error-message">{{errorMessage}}</p>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <p class="redirect-message">Don't have account yet?</p>
+      </div>
+    </div>
+  </div>
 </div>

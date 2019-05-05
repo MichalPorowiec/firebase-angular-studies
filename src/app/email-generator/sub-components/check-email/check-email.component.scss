@@ -11,19 +11,10 @@ h3 {
 
 input {
     color: white;
-    width: 100%;
-}
-
-label {
-    width: 100%;
 }
 
 div {
     display: flex;
-}
-
-.btn {
-    width: 100%;
 }
 
 .email-presentation {
@@ -43,9 +34,15 @@ div {
 }
 
 .copy-button {
-    position: absolute;
     width: 25%;
-    height: 100%;
-    left: 0px;
+    border: none;
+    box-sizing: border-box;
+    padding: 5px;
+    z-index: 9999;
+    line-height: 2em;
+}
+
+.email-output {
+    position: absolute;
 }
 

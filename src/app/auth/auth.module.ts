@@ -4,11 +4,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ],
   imports: [
     CommonModule,
@@ -16,7 +18,8 @@ import { LoginComponent } from './login/login.component';
     FontAwesomeModule
   ],
   exports: [
-    LoginComponent
+    LoginComponent,
+    LogoutComponent
   ]
 })
 export class AuthModule { }
