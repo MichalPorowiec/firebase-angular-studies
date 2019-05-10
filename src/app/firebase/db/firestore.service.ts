@@ -8,6 +8,8 @@ import { RegisterClassmate } from '../../entities/register-classmate';
 import { UserService } from 'src/app/services/user.service';
 import { ExaminSession } from 'src/app/entities/examin-session';
 import { ExaminSessionDTO } from './dtos/examin-session-dto';
+import { ProfessorEmail } from 'src/app/email-generator/entities/professor-email';
+import { ProfessorEmailParameters } from 'src/app/email-generator/entities/parameters/professor-email-parameters';
 
 @Injectable({
   providedIn: 'root'
@@ -165,4 +167,25 @@ export class FirestoreService implements DbCommunication {
       return day;
     });
   }
+
+  getSpecialEmails(): Promise<ProfessorEmail[]> {
+    return new Promise((resolve, reject) => {
+      this.firestore.collection('SpecialProfessorEmail').valueChanges().subscribe((emailList: ProfessorEmailParameters[]) => {
+        const mails = emailList.map((email: ProfessorEmailParameters) => {
+          return new ProfessorEmail({...email});
+        });
+      });
+    });
+  }
+
+  getAllProfessors(): Promise<ProfessorEmail> {
+    return new Promise((resolve, reject) => {
+      this.firestore.collection('ProfessorsList').valueChanges().subscribe((response: ProfessorEmailParameters[]) => {
+        response.map(el => {
+          return new ProfessorEmail({...el});
+        });
+      });
+    });
+  }
 }
+  
