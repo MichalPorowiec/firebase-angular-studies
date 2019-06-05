@@ -1,0 +1,20 @@
+<div class="row question-header">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10 question-section">
+    <div class="row">
+      <div class="col-sm-10">
+        <h2>{{question}}</h2>
+      </div>
+      <div class="col-sm-2 caret-down-wrapper">
+        <h2 class="caret-transition" [ngClass]="{'caret-rotation': shouldShowAnswer}"><fa-icon [icon]="caretDownIcon" (click)="showAnswer()"></fa-icon></h2>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-1"></div>
+</div>
+<div class="row answer-container" [ngClass]="{'answer-container-hidden': !shouldShowAnswer}">
+  <div class="col-sm-1"></div>
+  <div class="col-sm-10 answer-section" [ngClass]="{'answer-section-hidden': !shouldShowAnswer}">
+    {{answer}}
+  </div>
+</div> 

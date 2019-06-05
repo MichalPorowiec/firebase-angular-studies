@@ -5,12 +5,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { RegisterComponent } from './register/register.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { LogoutComponent } from './logout/logout.component';
   ],
   exports: [
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    RegisterComponent
   ]
 })
 export class AuthModule { }

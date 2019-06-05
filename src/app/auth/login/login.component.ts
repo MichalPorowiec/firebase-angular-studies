@@ -4,6 +4,8 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FirebaseAuthService } from '../../firebase/db/firebase-auth.service';
 import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { FirestoreService } from '../../firebase/db/firestore.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,7 @@ export class LoginComponent {
   errorMessage: string;
   faCheck;
 
-  constructor(private auth: FirebaseAuthService, private router:Router) {
+  constructor(private auth: FirebaseAuthService, private router:Router, private userService: UserService) {
     this.faCheck = faCheck;
 
     this.loginForm = new FormGroup({
@@ -31,7 +33,8 @@ export class LoginComponent {
       userEmail: this.loginForm.controls.userEmail.value,
       userPassword: this.loginForm.controls.userPassword.value
     }).then(resp => {
-      if (resp) {
+      if (typeof(resp) === 'string' && resp.length > 0) {
+        this.userService.setUserId(resp);
         this.router.navigateByUrl('/');
       } else {
         this.throwError();

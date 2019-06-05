@@ -2,26 +2,10 @@
     border-radius: 15px;
     min-width: 1000px;   
     height: 60vh;
-    min-height: 475px;
+    min-height: 600px;
     margin: 112.5px 50px;
     background-color: #172333;
     display: flex;
-}
-
-@media only screen and(max-width: 768px) {
-    .app-container {
-        flex-flow: column wrap;
-    }
-
-    .menu  {
-        border-radius: 15px 15px 0px 0px !important;
-    }
-
-    .content-items {
-        min-width: 100%;
-        margin: 0px;
-        border-radius: 0 0 15px 15px !important;
-    }
 }
 
 .menu {

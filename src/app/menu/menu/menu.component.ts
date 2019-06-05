@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MenuRoute } from '../interfaces/menu-route';
@@ -9,7 +9,7 @@ import { faTable, faUser, faEnvelope, faQuestion, faGraduationCap} from '@fortaw
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit, OnChanges{
   headerIcon;
   menuItems: MenuRoute[];
 
@@ -22,12 +22,20 @@ export class MenuComponent implements OnInit {
       {name: 'Email Generator', icon: faEnvelope, routerLink: '/emailGenerator'}
     ];
 
-    if (router.url == "/") {
+    if (window.location.pathname === "/") {
       this.menuItems[0].isActive = true;
     }
    }
 
   ngOnInit() {
+
   }
 
+  ngOnChanges() {
+    if (window.location.pathname === "/") {
+      this.menuItems[0].isActive = true;
+    } else {
+      this.menuItems[0].isActive = false;
+    }
+  }
 }

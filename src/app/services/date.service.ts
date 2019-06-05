@@ -15,7 +15,6 @@ export class DateService {
     const initDate: Date = new Date(sessionToInit.sessionStart);
     const finishDate: Date = new Date(sessionToInit.sessionEnd);
 
-    console.log(initDate);
     const transferDate: Date = new Date(initDate);
 
     while (transferDate <= finishDate) {

@@ -9,6 +9,8 @@ import { MenuModule } from './menu/menu/menu.module';
 import { AuthModule } from './auth/auth.module';
 import { EmailGeneratorModule } from './email-generator/email-generator.module';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { CookieService } from 'ngx-cookie-service';
+import { FaqModule } from './faq/faq.module';
 
 @NgModule({
   declarations: [
@@ -20,11 +22,12 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     AvailabilityModule,
     FirebaseModule,
     MenuModule,
+    FaqModule,
     AuthModule,
     EmailGeneratorModule,
     AngularFireAuthModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

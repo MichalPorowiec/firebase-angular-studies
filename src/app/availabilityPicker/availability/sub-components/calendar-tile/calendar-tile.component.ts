@@ -5,7 +5,6 @@ import { SessionDayAvailability } from 'src/app/entities/session-day-availabilit
 import { SessionDay } from 'src/app/entities/session-day';
 import { AvailabilityService } from 'src/app/availabilityPicker/services/availability.service';
 import { CustomValidatorService } from '../../../../services/custom-validator.service';
-import { AvailabilityRequestService } from '../../../services/availability-request.service';
 
 @Component({
   selector: 'app-calendar-tile',
@@ -29,8 +28,7 @@ export class CalendarTileComponent implements OnInit {
 
   constructor(
     private availabilityService: AvailabilityService, 
-    private customValidators: CustomValidatorService, 
-    private availabilityRequestService:AvailabilityRequestService
+    private customValidators: CustomValidatorService
   ) {
     this.faCheck = faCheck;
     this.faTimes = faTimes;
@@ -118,7 +116,7 @@ export class CalendarTileComponent implements OnInit {
 
   noAvailableSubmit() {
     this.requestSendHandler();
-    this.availabilityRequestService.notAvailableRequest(this.availabilityForm, this.tileDate, this.sessionId).then((requestStatus: boolean) => {
+    this.availabilityService.notAvailableRequest(this.availabilityForm, this.tileDate, this.sessionId).then((requestStatus: boolean) => {
       this.requestResponseHandler(requestStatus);
     });
   }

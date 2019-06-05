@@ -1,0 +1,59 @@
+@import '../../../../variables.scss';
+
+.question-section {
+    padding: 3px;
+    background-color: $secondary-color;
+}
+
+@media only screen and(max-width: 575px) {
+    .question-section h2 {
+        text-align: center;
+    }
+}
+
+.answer-container {
+    max-height: 300px;
+    overflow: hidden;
+    transition: max-height ease 2s;
+}
+
+.answer-container-hidden {
+    max-height: 0px;
+}
+
+.caret-down-wrapper {
+    text-align: center;
+}
+
+.caret-down-wrapper h2 :first-child {
+    cursor: pointer;
+}
+
+.caret-rotation {
+    transform: rotate(180deg);
+}
+
+.caret-transition {
+    transition: transform 1s;
+}
+
+.answer-section {
+    border: 2px solid $secondary-color;
+    color: $secondary-color;
+    padding: 10px;
+    transform: scaleY(1);    
+    opacity: 100;
+    transform-origin: top;
+    transition: opacity 1s, transform 1s, padding 0.5s, border 1s;
+    overflow: hidden;
+}
+
+.answer-section-hidden {
+    padding: 0px;
+    opacity: 0;
+    transform: scaleY(0);
+}
+
+.answer-section p {
+    color: $secondary-color;
+}

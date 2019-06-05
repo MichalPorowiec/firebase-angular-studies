@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { SessionService } from './session.service';
 import { ExaminSession } from 'src/app/entities/examin-session';
 import { DateService } from '../../services/date.service';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class AvailabilityService implements AvailabilityInterface {
     private userService: UserService,
     private sessionService: SessionService,
     private dateService: DateService) {
-
+      
     }
 
   updateAvailability(sessionDay: SessionDay, sessionId: string, dayId: string): Promise<boolean> {
@@ -52,5 +53,15 @@ export class AvailabilityService implements AvailabilityInterface {
 
       this.firestore.initUserSession(arrayForSession, activeSession.sessionName);
     })
+  }
+
+  notAvailableRequest(availabilityForm: FormGroup, tileDate:Date,  sessionId: string): Promise<boolean> {
+    const sessionDay = new SessionDay({
+      available: false,
+      timeStamp: tileDate,
+      unavailabilityReason: availabilityForm.controls.unavailabilityReason.value
+    });
+
+    return this.initAvailability(sessionDay, sessionId);
   }
 }

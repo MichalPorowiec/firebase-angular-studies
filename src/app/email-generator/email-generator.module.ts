@@ -5,6 +5,8 @@ import { WholeEmailGeneratorComponent } from './sub-components/whole-email-gener
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CheckEmailComponent } from './sub-components/check-email/check-email.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { MDBBootstrapModule } from 'angular-bootstrap-md';
   imports: [
     CommonModule,
     FontAwesomeModule,
-    MDBBootstrapModule
+    MDBBootstrapModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [EmailGeneratorComponent]
 })

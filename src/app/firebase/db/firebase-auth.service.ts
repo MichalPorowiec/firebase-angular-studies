@@ -4,6 +4,7 @@ import { FirebaseAuth } from 'node_modules/@angular/fire';
 import { LoginClassmateParameters } from '../../entities/entitiesParameterInterfaces/login-clasmate-parameters';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class FirebaseAuthService {
   isLoggedIn: boolean;
   userId :string; 
 
-  constructor(private auth: AngularFireAuth) { 
+  constructor(private auth: AngularFireAuth, private router: Router) { 
     this.isLoggedIn = false;
 
     this.auth.user.subscribe((userInfo: firebase.User) => {
@@ -30,12 +31,12 @@ export class FirebaseAuthService {
     .catch(error => false)
   }
 
-  loginUser(userInfo:LoginClassmateParameters) :Promise<boolean> {
+  loginUser(userInfo:LoginClassmateParameters) :Promise<string | boolean> {
     return this.auth.auth
     .signInWithEmailAndPassword(userInfo.userEmail, userInfo.userPassword)
     .then(callbackInfo =>{
-      this.isLoggedIn = true
-      return this.isLoggedIn;
+      this.isLoggedIn = true;
+      return callbackInfo.user.uid;
     })
     .catch(error => false)
   }
@@ -45,8 +46,7 @@ export class FirebaseAuthService {
   }
 
   logoutUser(): Promise<void>{
-    if (this.isLoggedIn) {
-      return this.auth.auth.signOut();
-    }
+    return this.auth.auth.signOut();
+    this.router.navigateByUrl('/login');
   }
 }

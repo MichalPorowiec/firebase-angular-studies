@@ -10,6 +10,8 @@ import { ExaminSession } from 'src/app/entities/examin-session';
 import { ExaminSessionDTO } from './dtos/examin-session-dto';
 import { ProfessorEmail } from 'src/app/email-generator/entities/professor-email';
 import { ProfessorEmailParameters } from 'src/app/email-generator/entities/parameters/professor-email-parameters';
+import { Question } from '../../faq/entities/question';
+import { QuestionParameters } from '../../faq/entities/entities-parameters/question-parameters';
 
 @Injectable({
   providedIn: 'root'
@@ -99,7 +101,6 @@ export class FirestoreService implements DbCommunication {
           sessionDays.push(sessionDay);
         }
       })
-      console.log(sessionDays);
       if (sessionDays.length == sessionDates.length) {
         sessionDays.forEach((sessionDay: SessionDay) => {
           this.initUserAvailability(sessionDay, sessionId)
@@ -174,6 +175,12 @@ export class FirestoreService implements DbCommunication {
         const mails = emailList.map((email: ProfessorEmailParameters) => {
           return new ProfessorEmail({...email});
         });
+
+        if (mails.length > 0) {
+          resolve(mails);
+        } else {
+          reject('No mails found');
+        }
       });
     });
   }
@@ -186,6 +193,19 @@ export class FirestoreService implements DbCommunication {
         });
       });
     });
+  }
+
+  getQuestions(): Promise<Question[]> {
+    return new Promise((resolve, reject) => {
+      this.firestore.collection('Questions').valueChanges().subscribe((questions: QuestionParameters[]) => {
+        if(questions.length <= 0) {
+          reject();
+        }
+
+        const mappedQuestions = questions.map((question: QuestionParameters) => new Question(question))
+        resolve(mappedQuestions);
+      })
+    })
   }
 }
   

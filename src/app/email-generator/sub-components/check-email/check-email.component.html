@@ -1,21 +1,21 @@
 <div class="col-sm-12 email-creator center-flex">
-  <div class="row">
+  <form class="row" [formGroup]="emailCheckForm" (ngSubmit)="generateEmail()">
     <div class="col-sm-4 center-flex">
       <label>
-        <input type="text" placeholder="Professor's Name">
+        <input type="text" placeholder="Professor's Name" formControlName="professorsName">
       </label>
     </div>
     <div class="col-sm-4 center-flex">
       <label>
-        <input type="text" placeholder="Professor's last name">
+        <input type="text" placeholder="Professor's last name" formControlName="professorsLastName">
       </label>
     </div>
     <div class="col-sm-4 center-flex" *ngIf="!shouldDisplayQuestionSection">
-      <button type="submit" class="btn btn-light" (click)="returnToQuestionSection()">Generate E-mail</button>
+      <button type="submit" class="btn btn-light">Generate E-mail</button>
     </div>
     <div class="col-sm-12 email-presentation">
       <input class="email-output" type="text" [(value)]=professorsEmail readonly>
-      <button class="btn btn-primary copy-button">Copy</button>
+      <button type="button" class="btn btn-primary copy-button">Copy</button>
     </div>
-  </div>
+  </form>
 </div>  

@@ -12,7 +12,9 @@ export class GenerateEmailService {
   generateEmail(professorName: string, professorLastName: string): Promise<ProfessorEmail> {
     return new Promise((resolve, reject) => {
       this._getSpecialEmail(professorName, professorLastName).then((response) => {
-        response ? resolve(response) : resolve(this._generateStandardEmail(professorName, professorLastName))
+        resolve(response);
+      }).catch(error => {
+        resolve(this._generateStandardEmail(professorName, professorLastName))
       });
     });
   }
@@ -20,22 +22,23 @@ export class GenerateEmailService {
   private _getSpecialEmail(professorName: string, professorLastName: string): Promise<ProfessorEmail> {
     return new Promise((resolve, reject) => {
       professorName = professorName.toLowerCase();
-      professorLastName = professorName.toLowerCase();
+      professorLastName = professorLastName.toLowerCase();
 
       this.db.getSpecialEmails().then((emails: ProfessorEmail[]) => {
         const email = emails.find((el: ProfessorEmail) => {
-          return `${el.name.toLowerCase()} ${el.lastName.toLowerCase()}` === `${ProfessorEmail} ${professorLastName}`
+          return `${el.pName.toLowerCase()} ${el.lastName.toLowerCase()}` === `${professorName} ${professorLastName}`
         })
 
-        email ? resolve(email) : reject(false);
+        email != undefined ? resolve(email) : reject(false);
       });
     });
   }
 
   private _generateStandardEmail(professorName: string, professorLastName: string): ProfessorEmail {
+    //TODO CHECK IF PROF EMAIL EXISTS
     const email = `${professorName.toLowerCase()}.${professorLastName.toLocaleLowerCase()}@polsl.pl`;
     const profEmail = new ProfessorEmail({
-      name: (professorName),
+      pName: (professorName),
       lastName: (professorLastName),
       email: email
     });

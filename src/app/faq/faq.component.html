@@ -1,0 +1,10 @@
+<div class="col-sm-12">
+    <h2 class="faq-title"><fa-icon [icon]="bookIcon" (click)="showAnswer()"></fa-icon> FAQ</h2>
+</div>
+<div class="col-sm-12" *ngIf="isFaqInitialized(); else loading">
+    <app-qa-section *ngFor="let question of faq" [question]="question.question" [answer]="question.answer"></app-qa-section>
+</div>
+
+<ng-template #loading>
+    <p class="loading-message">loading, please wait</p>
+</ng-template>
